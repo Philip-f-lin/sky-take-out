@@ -38,7 +38,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     }
 
     /**
-     * 透過knife4j產生介面文檔
+     * 透過 knife4j 產生介面文檔
      * @return
      */
     @Bean
