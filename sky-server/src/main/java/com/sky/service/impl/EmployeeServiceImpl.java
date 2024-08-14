@@ -84,7 +84,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
 
         // 設置當前創建者 id 和 修改者 id
-        // TODO 之後再將此設置為當前登錄使用者的 id
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
 
