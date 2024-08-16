@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 public interface EmployeeMapper {
 
     /**
-     * 根据用户名查询员工
+     * 根據使用者名稱查詢員工
      * @param username
      * @return
      */
