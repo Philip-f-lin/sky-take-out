@@ -34,6 +34,6 @@ sky:
     # 設定 jwt 加密時使用的秘鑰
     admin-secret-key: itcast
     # 設定 jwt 過期時間
-    admin-ttl: 7200000
+    admin-ttl: 720000000
     # 設定提交轉帳的令牌名稱
     admin-token-name: token
