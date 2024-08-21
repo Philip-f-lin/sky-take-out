@@ -21,19 +21,19 @@ public class Dish implements Serializable {
 
     private Long id;
 
-    //菜品名称
+    //菜色名稱
     private String name;
 
-    //菜品分类id
+    //菜色分類id
     private Long categoryId;
 
-    //菜品价格
+    //菜價
     private BigDecimal price;
 
-    //图片
+    //圖片
     private String image;
 
-    //描述信息
+    //描述訊息
     private String description;
 
     //0 停售 1 起售
