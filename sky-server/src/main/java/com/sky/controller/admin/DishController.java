@@ -77,4 +77,16 @@ public class DishController {
         return Result.success(dishVO);
     }
 
+    /**
+     * 修改菜色
+     * @param dishDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("修改菜色")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改菜色: {}", dishDTO);
+        dishService.updateWithFlavor(dishDTO);
+        return Result.success();
+    }
 }

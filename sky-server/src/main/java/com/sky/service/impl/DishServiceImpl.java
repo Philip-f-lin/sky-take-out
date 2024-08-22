@@ -52,7 +52,7 @@ public class DishServiceImpl implements DishService {
         Long dishId = dish.getId();
 
         List<DishFlavor> flavors = dishDTO.getFlavors();
-        if(flavors != null && flavors.isEmpty()){
+        if(flavors != null && !flavors.isEmpty()){
             flavors.forEach(dishFlavor -> {
                 dishFlavor.setDishId(dishId);
             });
@@ -131,5 +131,32 @@ public class DishServiceImpl implements DishService {
         dishVO.setFlavors(dishFlavor);
 
         return dishVO;
+    }
+
+    /**
+     * 根據 id 修改菜色基本訊息和對應的口味訊息
+     * @param dishDTO
+     */
+    @Override
+    public void updateWithFlavor(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+
+        // 修改菜色表基本訊息
+        dishMapper.update(dish);
+
+        // 刪除原有的口味訊息
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+
+        // 重新插入口味數據
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if(flavors != null && !flavors.isEmpty()){
+            flavors.forEach(dishFlavor -> {
+                dishFlavor.setDishId(dishDTO.getId());
+            });
+            // 向口味表插入 n 條數據
+            dishFlavorMapper.batchInsert(flavors);
+        }
+
     }
 }
