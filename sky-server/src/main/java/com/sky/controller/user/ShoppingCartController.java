@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/user/shoppingCart")
-@Api(value = "C端購物車相關接口")
+@Api(tags = "C端購物車相關接口")
 @Slf4j
 public class ShoppingCartController {
 

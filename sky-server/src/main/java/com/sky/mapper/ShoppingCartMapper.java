@@ -2,6 +2,7 @@ package com.sky.mapper;
 
 import com.sky.dto.ShoppingCartDTO;
 import com.sky.entity.ShoppingCart;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
@@ -15,7 +16,7 @@ public interface ShoppingCartMapper {
      * @param shoppingCartDTO
      * @return
      */
-    List<ShoppingCart> list(ShoppingCartDTO shoppingCartDTO);
+    List<ShoppingCart> list(ShoppingCart shoppingCart);
 
     /**
      * 根據 id 修改商品數量
@@ -23,4 +24,13 @@ public interface ShoppingCartMapper {
      */
     @Update("update sky_take_out.shopping_cart set number = #{number} where id = #{id}")
     void updateNumberById(ShoppingCart shoppingCart);
+
+    /**
+     * 插入購物車數據
+     * @param shoppingCart
+     */
+    @Insert("INSERT INTO sky_take_out.shopping_cart (name, user_id, dish_id, setmeal_id, dish_flavor, number, amount, image, create_time) " +
+            "VALUES (#{name}, #{userId}, #{dishId}, #{setmealId}, #{dishFlavor}, #{number}, #{amount}, #{image}, #{createTime})")
+    void insert(ShoppingCart shoppingCart);
+
 }
