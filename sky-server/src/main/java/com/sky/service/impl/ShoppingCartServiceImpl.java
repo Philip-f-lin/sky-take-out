@@ -39,7 +39,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = new ShoppingCart();
         BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
         Long currentId = BaseContext.getCurrentId();
-        shoppingCart.setUserId(currentId);
+        shoppingCart.setUserId(1L);
 
         List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
 
@@ -70,5 +70,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setCreateTime(LocalDateTime.now());
             shoppingCartMapper.insert(shoppingCart);
         }
+    }
+
+    /**
+     * 查看購物車
+     * @return
+     */
+    @Override
+    public List<ShoppingCart> showShoppingCart() {
+        // 獲取使用者 id
+        Long userId = BaseContext.getCurrentId();
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .userId(userId)
+                .build();
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        return list;
     }
 }
