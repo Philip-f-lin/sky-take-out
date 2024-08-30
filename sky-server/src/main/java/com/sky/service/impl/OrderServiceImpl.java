@@ -5,6 +5,7 @@ import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.entity.AddressBook;
+import com.sky.entity.OrderDetail;
 import com.sky.entity.Orders;
 import com.sky.entity.ShoppingCart;
 import com.sky.exception.AddressBookBusinessException;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -76,12 +78,27 @@ public class OrderServiceImpl implements OrderService {
 
         orderMapper.insert(orders);
 
+        List<OrderDetail> orderDetailList = new ArrayList<>();
         // 3. 向訂單明細表插入 n 條數據
+        for (ShoppingCart cart : shoppingCartList) {
+            OrderDetail orderDetail = new OrderDetail(); // 訂單明細
+            BeanUtils.copyProperties(cart, orderDetail);
+            orderDetail.setOrderId(orders.getId()); // 設置當前訂單明細關聯的訂單 id
+            orderDetailList.add(orderDetail);
+        }
+        orderDetailMapper.insertBatch(orderDetailList);
 
         // 4. 清空當前使用者的購物車數據
+        shoppingCartMapper.deleteByUserId(userId);
 
         // 5. 封裝 VO 返回結果
+        OrderSubmitVO orderSubmitVO = OrderSubmitVO.builder()
+                .id(orders.getId())
+                .orderTime(orders.getOrderTime())
+                .orderNumber(orders.getNumber())
+                .orderAmount(orders.getAmount())
+                .build();
 
-        return null;
+        return orderSubmitVO;
     }
 }
