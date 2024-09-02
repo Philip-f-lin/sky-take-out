@@ -9,12 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * 數據統計相關接口
@@ -37,8 +35,8 @@ public class ReportController {
     @GetMapping("/turnoverStatistics")
     @ApiOperation("營業額統計")
     public Result<TurnoverReportVO> turnoverStatistics(
-            @DateTimeFormat(pattern = "yyyy-mm-dd") LocalDate begin,
-            @DateTimeFormat(pattern = "yyyy-mm-dd") LocalDate end){
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
         log.info("營業額統計: {}, {}", begin, end);
         return Result.success(reportService.getTurnoverStatistics(begin, end));
     }

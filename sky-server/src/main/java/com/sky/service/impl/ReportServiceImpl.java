@@ -49,12 +49,13 @@ public class ReportServiceImpl implements ReportService {
             LocalDateTime beginTime = LocalDateTime.of(date, LocalTime.MIN);
             LocalDateTime endTime = LocalDateTime.of(date, LocalTime.MAX);
 
-            // select * from orders where order_time > beginTime and order_time < endTime and status = 5
+            // select sum(amount) from orders where order_time > beginTime and order_time < endTime and status = 5
             Map map = new HashMap<>();
             map.put("begin", beginTime);
             map.put("end", endTime);
             map.put("status", Orders.COMPLETED);
             Double turnover = orderMapper.sumByMap(map);
+            turnover = turnover == null ? 0.0 :turnover;
             turnoverList.add(turnover);
         }
 

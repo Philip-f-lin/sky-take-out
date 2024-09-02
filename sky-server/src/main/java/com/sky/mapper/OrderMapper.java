@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -28,4 +29,11 @@ public interface OrderMapper {
 
     @Select("select * from sky_take_out.orders where id = #{id}")
     Orders getById(Long id);
+
+    /**
+     * 根據動態條件統計營業額數據
+     * @param map
+     * @return
+     */
+    Double sumByMap(Map map);
 }
